@@ -72,7 +72,9 @@ def create_or_update_deployment(
         name=deployment_name,
         endpoint_name=endpoint_name,
         model=model,
-        instance_type="Standard_D2as_v4",
+        # DS1_v2 = 1 core; with AML's 20% upgrade reserve this needs ~2 cores.
+        # D2as_v4 = 2 cores → requests 4 and often hits OutOfQuota on lab subs.
+        instance_type="Standard_DS1_v2",
         instance_count=1,
         data_collector=get_data_collector(),
     )
